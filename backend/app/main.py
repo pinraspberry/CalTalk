@@ -7,6 +7,7 @@ import os
 from dotenv import load_dotenv
 from app.services.nlp import NLPService
 from app.services.calendar import CalendarService
+import traceback
 
 # Initialize services
 nlp_service = NLPService()
@@ -99,6 +100,7 @@ async def create_event_natural(user_input: UserInput):
         created_event = calendar_service.create_event(event_data)
         return {"message": "Event created successfully", "event": created_event}
     except Exception as e:
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/events/daily")
@@ -117,6 +119,7 @@ async def get_daily_agenda(date: Optional[str] = None):
         events = calendar_service.get_daily_agenda(parsed_date)
         return {"message": "Daily agenda retrieved", "events": events, "date": parsed_date.isoformat()}
     except Exception as e:
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/events/conflicts")
@@ -125,6 +128,7 @@ async def check_conflicts(start_time: datetime, end_time: datetime):
         # TODO: Implement conflict detection
         return {"message": "Checking for conflicts", "start_time": start_time, "end_time": end_time}
     except Exception as e:
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.delete("/events/{event_id}")
@@ -133,6 +137,7 @@ async def delete_event(event_id: str):
         calendar_service.delete_event(event_id)
         return {"message": "Event deleted successfully"}
     except Exception as e:
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":

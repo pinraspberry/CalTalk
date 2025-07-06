@@ -54,6 +54,9 @@ Remember to:
 5. Set default priority to "medium" if not specified
 6. Return only valid JSON format
 
+Make sure that relative time phrases like "today", "tomorrow", "next week" are fully converted into ISO 8601 formatted timestamps, and NOT left as words.
+Do NOT include date keywords like "today" or "tomorrow" in the event title.
+
 Return the response as a JSON object with the extracted information."""
         
         return prompt

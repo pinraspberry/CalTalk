@@ -77,7 +77,7 @@ class CalendarService:
             },
             'description': event_data.get('description', ''),
             'location': event_data.get('location', ''),
-            'attendees': [{'email': email} for email in event_data.get('attendees', [])],
+            'attendees': [{'email': email} for email in (event_data.get('attendees') or [])],
             'reminders': {
                 'useDefault': False,
                 'overrides': [
